@@ -1,0 +1,4 @@
+<%= form_tag '/search', :class => 'navbar-search',  :method => :get, :remote => true do %>
+  <%= text_field_tag 'query', nil, :placeholder => 'Search for courses', :class => 'search-query' %>
+  <i class="icon-search"></i>
+<% end %>

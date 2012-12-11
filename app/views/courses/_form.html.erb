@@ -1,0 +1,36 @@
+<%=  form_for @course, :html => {:multipart => true} do |f| %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :teacher %>
+    <%= select_tag(:teacher, options_for_select(@teachers)) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %> 
+    <%= f.text_field :remote_image_url, :placeholder => "Or enter a url" %>
+  </div>
+
+  <div class="field">
+    <%= image_tag( @course.image.thumb.url, :class => "img-polaroid edit-image")  if  @course.image? %>
+  </div>
+
+
+   <div class="submit"><%= f.submit %></div>
+<% end %>

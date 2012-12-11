@@ -1,0 +1,6 @@
+<%= form_tag users_path, :class => 'form-inline' do %>
+  <%= text_field_tag 'email', nil, :placeholder => "Email", :class => 'input-medium' %>
+  <%= password_field_tag 'password', nil, :placeholder => "Password", :class => 'input-medium' %>
+  <%= password_field_tag 'password_confirmation', nil, :placeholder => "Confirm password", :class => 'input-medium' %>
+  <%= submit_tag 'Register', :class => 'btn' %>
+<% end %>

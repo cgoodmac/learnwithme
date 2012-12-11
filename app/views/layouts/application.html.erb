@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lifehacks</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- Basic Needs -->
+  <div class="fixed contain-to-grid">
+    <nav class="top-bar">
+      <ul>
+        <li class="name"><h1><a href="#">Lifehacks</a></h1></li>
+        <li class="toggle-topbar"><a href="#"></a></li>
+      </ul>
+      <section>
+        <ul class="left">
+          <li><a href="#">Link</a></li>
+        </ul>
+
+        <ul class="right">
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+    </nav>
+  </div>
+
+  <div class="row">
+    <div class="twelve columns centered">
+      <%= yield %>
+
+
+    </div>
+  </div>
+
+
+
+</body>
+</html>
