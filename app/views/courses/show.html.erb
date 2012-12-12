@@ -1,6 +1,11 @@
 <h1><%= @course.title %></h1>
 
 <div class="clearfix">
+
+  <% if @course.videos.any? %>
+    <%= render :partial => 'shared/video', :locals => {:video => @course.videos.first.link} %>
+  <% end %>
+
   <div id="course-image">
   <%= image_tag @course.image.url, :class => "img-polaroid" %>
   </div>

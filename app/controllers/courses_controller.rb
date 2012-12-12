@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
   def index
-    @courses = Course.where(:user_id => @auth)
+    @courses = Course.all
   end
 
   def show
@@ -25,14 +25,19 @@ class CoursesController < ApplicationController
     teacher_id = User.where(:is_teacher => "on").where(:first_name => teacher_first).where(:last_name => teacher_last).first.id
 
     c = Course.new
-    c.title = params[:course][:title]
-    c.description = params[:course][:description]
-    c.price = params[:course][:price]
-    c.image_cache = params[:course][:image_cache]
-    c.remote_image_url = params[:course][:remote_image_url]
+
+    c.title = params[:title]
+    c.description = params[:description]
+    c.price = params[:price]
+    c.image_cache = params[:image_cache]
+    c.remote_image_url = params[:remote_image_url]
     c.teacher_id = teacher_id
     c.save
+
+    v = Video.create(:title => params[:video_title], :link => params[:video_link])
     
+    c.videos << v
+
     redirect_to courses_path
   end
 

@@ -1,36 +1,65 @@
-<%=  form_for @course, :html => {:multipart => true} do |f| %>
+<div class="row">
+<div class="six columns">
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+<%=  form_tag courses_path, :html => {:multipart => true} do %>
+
+  <fieldset>
+
+    <legend>Course Information</legend>
+  
+    <div class="field">
+      <%= label_tag 'title' %>
+      <%= text_field_tag 'title' %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'teacher' %>
+      <%= select_tag(:teacher, options_for_select(@teachers)) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'description' %>
+      <%= text_area_tag 'description', nil, :rows => "5" %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'price' %>
+      <%= number_field_tag 'price' %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'course_image' %>
+      <%= file_field_tag 'course_image' %>
+      <%= hidden_field_tag 'image_cache' %> 
+      <%= text_field_tag 'remote_image_url', nil, :placeholder => "Or enter a url" %>
+    </div>
+
+    <div class="field">
+      <%= image_tag( @course.image.thumb.url, :class => "edit-image")  if  @course.image? %>
+    </div>
+  
+  </fieldset><!-- course info fieldset -->
+
+  <div class="submit"><%= submit_tag %></div>
+
+</div>
+
+  <div class="six columns">
+   
+    <fieldset>
+      <legend>Add Media</legend>
+
+      <div class="field">
+        <input type="button" id="add_video" value="Add Video">
+        <input type="button" id="add_ebook" value="Add Ebook" >
+        <input type="button" id="add_audio" value="Add Audio">
+      </div>
+
+    </fieldset>
+
+    <%= render 'shared/addvideo' %>
+    <%= render 'shared/addebook' %>
+
   </div>
-
-  <div class="field">
-    <%= f.label :teacher %>
-    <%= select_tag(:teacher, options_for_select(@teachers)) %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    <%= f.hidden_field :image_cache %> 
-    <%= f.text_field :remote_image_url, :placeholder => "Or enter a url" %>
-  </div>
-
-  <div class="field">
-    <%= image_tag( @course.image.thumb.url, :class => "img-polaroid edit-image")  if  @course.image? %>
-  </div>
-
-
-   <div class="submit"><%= f.submit %></div>
 <% end %>
+</div><!--end 12 column row-->
