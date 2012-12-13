@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   def show
     course_id = params[:id]
     @course = Course.find(course_id)
+    @teacher = User.find(@course.teacher_id)
   end
 
   def new
@@ -16,10 +17,19 @@ class CoursesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:id])
+    if @auth.is_admin == "on"
+      @course = Course.find(params[:id])
+      teacher_objects = User.where(:is_teacher => "on")
+      @teachers = teacher_objects.map {|teacher| ["#{teacher.first_name} #{teacher.last_name}"]  }
+    else
+      redirect_to dashboard_path
+    end
   end
 
   def create
+
+    binding.pry
+    
     teacher_first = params[:teacher].split(' ').first
     teacher_last = params[:teacher].split(' ').last
     teacher_id = User.where(:is_teacher => "on").where(:first_name => teacher_first).where(:last_name => teacher_last).first.id
@@ -34,9 +44,22 @@ class CoursesController < ApplicationController
     c.teacher_id = teacher_id
     c.save
 
-    v = Video.create(:title => params[:video_title], :link => params[:video_link])
-    
-    c.videos << v
+    if params[:video_link] != ""
+      v = Video.create(:title => params[:video_title], :link => params[:video_link])
+      c.videos << v
+    end
+
+    if params[:ebook_file] != ""
+      params[:ebook_title] ||= "Untitled"
+      ebook = Ebook.create(:title => params[:ebook_title], :ebook_file => params[:ebook_file], :image => params[:ebook_image])
+      c.ebooks << ebook
+    end
+
+    if params[:audio_file] != ""
+      params[:audio_title] ||= "Untitled book"
+      audio = Audio.create(:title => params[:audio_title], :audio_file => params[:audio_file])
+      c.audios << audio
+    end
 
     redirect_to courses_path
   end

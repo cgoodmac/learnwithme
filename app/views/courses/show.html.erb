@@ -1,4 +1,4 @@
-<h1><%= @course.title %></h1>
+<h2><%= @course.title %></h2>
 
 <div class="clearfix">
 
@@ -6,10 +6,19 @@
     <%= render :partial => 'shared/video', :locals => {:video => @course.videos.first.link} %>
   <% end %>
 
-  <div id="course-image">
-  <%= image_tag @course.image.url, :class => "img-polaroid" %>
-  </div>
+  <%= @teacher.full_name %>
 
+  <% if @course.ebooks.any? %>
+    <%= render :partial => 'shared/ebook', :locals => {:ebook_file => @course.ebooks.first.ebook_file.url, :ebook_title => @course.ebooks.first.title, :ebook_image => @course.ebooks.first.image.url }  %>
+  <% end %>
+
+  <% if @course.audios.any? %>
+    <%= render :partial => 'shared/audio', :locals => { :audio_title => @course.audios.first.title, :audio_file => @course.audios.first.audio_file }  %>
+  <% end %>
+
+  <div id="course-image">
+    <%= image_tag @course.image.url, :class => "img-polaroid" %>
+  </div>
 
   <%= link_to 'Edit', edit_course_path %> | 
   <%= link_to 'Delete', @course, data: { confirm: 'Are you sure?' }, :method => :delete %>

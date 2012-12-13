@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212153550) do
+ActiveRecord::Schema.define(:version => 20121213192607) do
+
+  create_table "audios", :force => true do |t|
+    t.string   "title"
+    t.string   "audio_file"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "audios_courses", :id => false, :force => true do |t|
+    t.integer "audio_id"
+    t.integer "course_id"
+  end
 
   create_table "courses", :force => true do |t|
     t.string   "title"
@@ -23,6 +35,11 @@ ActiveRecord::Schema.define(:version => 20121212153550) do
     t.integer  "teacher_id"
   end
 
+  create_table "courses_ebooks", :id => false, :force => true do |t|
+    t.integer "course_id"
+    t.integer "ebook_id"
+  end
+
   create_table "courses_videos", :id => false, :force => true do |t|
     t.integer "course_id"
     t.integer "video_id"
@@ -31,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20121212153550) do
   create_table "ebooks", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.string   "link"
+    t.string   "ebook_file"
     t.string   "image"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -50,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20121212153550) do
     t.text     "description"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "full_name"
   end
 
   create_table "videos", :force => true do |t|

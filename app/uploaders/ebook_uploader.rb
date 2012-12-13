@@ -11,8 +11,11 @@ class EbookUploader < CarrierWave::Uploader::Base
   # include Sprockets::Helpers::IsolatedHelper
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  #if Rails.env.development?
+  # storage :file
+  #else
+   storage :fog
+  #end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -36,8 +39,23 @@ class EbookUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
+  
+  # def cover 
+  #   manipulate! do |frame, index|
+  #     frame if index.zero?
+  #   end
+  # end   
+
   # version :thumb do
-  #   process :scale => [50, 50]
+  #   # process :cover
+  #   process :resize_to_fill => [100, 129]
+  #   process :convert => 'png'
+  # end
+
+  # version :large do
+  #   process :cover
+  #   process :resize_to_fill => [250, 323]
+  #   process :convert => 'png'
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.

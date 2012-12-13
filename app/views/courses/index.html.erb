@@ -1,5 +1,10 @@
-<h1>Courses</h1>
+<h2>Courses</h2>
 
 <%= @courses.each do |course| %>
-  <li><%= link_to course.title, course %></li>
+    <%= link_to course do %>
+      <div class="course_pill">
+        <%= image_tag course.image.url %>
+        <h3><%= course.title %></h3>
+      </div>
+    <% end %>
 <% end %>

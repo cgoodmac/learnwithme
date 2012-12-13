@@ -13,7 +13,7 @@ gem 'aws-ses'
 gem 'rmagick'
 gem 'kaminari'
 gem 'foundation-icons-rails'
-
+gem 'httparty'
 
 group :development do
   gem 'pry-rails'
