@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
-//= require 'alertify.min.js'
+//= require 'foundation.js'
 //= require 'jquery.backstretch.min.js'
 //= require 'lifehacks.js'

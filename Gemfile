@@ -19,7 +19,10 @@ gem 'youtube_it'
 gem 'thumbs_up'
 gem 'nokogiri'
 gem 'fastimage'
-gem 'faraday'
+gem 'public_activity'
+gem 'acts_as_follower'
+gem 'compass-rails'
+gem 'zurb-foundation'
 
 group :development do
   gem 'pry-rails'
@@ -36,8 +39,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
     # Add these gems
-  gem 'compass-rails'
-  gem 'zurb-foundation'
+
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

@@ -5,6 +5,13 @@
 <div class="twelve columns">
   <div class="avatar two columns th">
     <%= image_tag @user.image.url %>
+    <div class="follow-button">
+      <% if @auth.following?(@user) %>
+        <%=j button_to('Unfollow', unfollow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
+      <% else %>
+        <%= button_to('Follow', follow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
+      <% end %>
+    </div>
   </div>
 
   <div id="courses_by" class="ten columns end">

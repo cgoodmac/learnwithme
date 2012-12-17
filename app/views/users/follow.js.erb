@@ -1,0 +1,5 @@
+$('#follow-button').empty();
+
+$('#follow-button').prepend('<%=j button_to('Unfollow', unfollow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>');
+
+    
