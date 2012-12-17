@@ -43,14 +43,13 @@ class UsersController < ApplicationController
   end
 
   def follow
-    followed = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     follower = @auth
-
-    follower.follow(followed)
+    follower.follow(@user)
   end
 
   def unfollow 
-    followed = User.find(params[:user_id])
-    @auth.stop_following(followed)
+    @user = User.find(params[:user_id])
+    @auth.stop_following(@user)
   end
 end

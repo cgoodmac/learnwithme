@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     user.full_name = auth[:info][:name]
     user.uid = auth[:uid]
     user.provider = auth[:provider]
+    user.remote_image_url = "http://bossymoksie.files.wordpress.com/2012/06/blank_avatar_220.png"
 
     pass = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
 
