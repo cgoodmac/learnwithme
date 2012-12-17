@@ -1,7 +1,6 @@
 namespace :vimeo_videoschool  do
   desc "get vimeo videoschool vids"
   task :getvideos => :environment do
-    require 'open-uri' #require open-uri lets you do the open in the next line
     data = HTTParty.get('http://vimeo.com/api/v2/group/videoschool/videos.json')
     
     data.each do |entry|

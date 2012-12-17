@@ -6,7 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.delete_all
+ActiveRecord::Base.establish_connection
+ActiveRecord::Base.connection.tables.each do |table|
+  next if table == 'schema_migrations'
+
+  # MySQL and PostgreSQL
+  ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
+
+end
 
 u1 = User.create(:email => "cgoodmac@gmail.com", :first_name => "Chris", :last_name => "Goodmacher", :password => "1", :password_confirmation => "1", :description => "Basketball Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus posuere ligula, id dignissim dolor pharetra sed.", :is_admin => "on")
 

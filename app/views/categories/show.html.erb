@@ -1,0 +1,12 @@
+<div class="twelve columns">
+  <h2><%= @category.name %></h2>
+</div>
+
+<div class="twelve columns">
+  <div id="courses_index" class="row">
+    <% @courses.each do |course| %>
+      <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+    <% end %>
+    <%= paginate @courses %>
+  </div>
+</div>

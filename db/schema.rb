@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213192607) do
+ActiveRecord::Schema.define(:version => 20121217164549) do
 
   create_table "audios", :force => true do |t|
     t.string   "title"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(:version => 20121213192607) do
 
   create_table "audios_courses", :id => false, :force => true do |t|
     t.integer "audio_id"
+    t.integer "course_id"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "page"
+  end
+
+  create_table "categories_courses", :id => false, :force => true do |t|
+    t.integer "category_id"
     t.integer "course_id"
   end
 
@@ -40,6 +52,11 @@ ActiveRecord::Schema.define(:version => 20121213192607) do
     t.integer "ebook_id"
   end
 
+  create_table "courses_users", :id => false, :force => true do |t|
+    t.integer "course_id"
+    t.integer "user_id"
+  end
+
   create_table "courses_videos", :id => false, :force => true do |t|
     t.integer "course_id"
     t.integer "video_id"
@@ -52,6 +69,15 @@ ActiveRecord::Schema.define(:version => 20121213192607) do
     t.string   "image"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "notes", :force => true do |t|
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "course_id"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -68,6 +94,8 @@ ActiveRecord::Schema.define(:version => 20121213192607) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "full_name"
+    t.string   "uid"
+    t.string   "provider"
   end
 
   create_table "videos", :force => true do |t|
@@ -77,6 +105,21 @@ ActiveRecord::Schema.define(:version => 20121213192607) do
     t.string   "image"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "duration"
   end
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "vote",          :default => false, :null => false
+    t.integer  "voteable_id",                      :null => false
+    t.string   "voteable_type",                    :null => false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "index_votes_on_voteable_id_and_voteable_type"
+  add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], :name => "fk_one_vote_per_user_per_entity", :unique => true
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
 end

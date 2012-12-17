@@ -1,0 +1,12 @@
+<div class="twelve columns">
+  <h2>Categories</h2>
+</div>
+
+<div class="twelve columns">
+  <ul class="unstyled">
+    <% @categories.each do |category| %>
+      <li><h3><%= link_to "#{category.name} (#{category.courses.count})", category %></h3></li>
+    <% end %>
+    <%= paginate @categories %>
+  </ul>
+</div>

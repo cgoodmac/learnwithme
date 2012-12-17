@@ -1,0 +1,9 @@
+$('#updown').empty();
+
+$('#updown').text('Thanks for voting!');
+
+$('#course-tally').empty();
+
+$('#course-tally').prepend('<%= @course.votes_against  %>');
+
+$('#course-tally').prepend('<%= @course.votes_for  %>');

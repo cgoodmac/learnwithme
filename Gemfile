@@ -14,11 +14,20 @@ gem 'rmagick'
 gem 'kaminari'
 gem 'foundation-icons-rails'
 gem 'httparty'
+gem 'omniauth-twitter'
+gem 'youtube_it'
+gem 'thumbs_up'
+gem 'nokogiri'
+gem 'fastimage'
+gem 'faraday'
 
 group :development do
   gem 'pry-rails'
   gem 'annotate'
   gem 'rails-footnotes'
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Gems used only for assets and not required

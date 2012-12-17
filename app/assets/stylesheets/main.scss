@@ -3,7 +3,7 @@ body {
   font-weight: 200;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, p {
   font-weight: 200;
 }
 
@@ -11,15 +11,65 @@ h1 {
   font-size: 60px;
 }
 
-#home_splash h1, #home_splash h2  {
+h4 {
+  font-size: 16px;
+}
+
+#home_splash h1, #home_splash h2, #home_splash h3  {
   color: white;
 }
 
 #home_splash h1 {
   margin-top: 30px;
+  padding-bottom: 30px;
 }
 
 #container {
--moz-box-shadow: 0 0 30px 5px #999;
--webkit-box-shadow: 0 0 30px 5px #999;
+  -moz-box-shadow: 0 0 30px 5px #999;
+  -webkit-box-shadow: 0 0 30px 5px #999;
+  height: 100%;
+  overflow:hidden;
+  padding-bottom: 20px;
+}
+
+.course_div {
+  height: 280px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+#login_reg {
+  margin-bottom: 30px;
+}
+
+#updown .glyph {
+  font-size: 30px;
+}
+
+.pagination {
+  clear:both;
+  font-size: 16px;
+  margin: 10px;
+}
+
+#notes h3 {
+  margin-top:0px;
+}
+
+table thead tr th:first-child {
+  width: 150px;
+}
+
+#more_info h2 {
+  text-align: center;
+}
+
+.unstyled {
+  list-style-type: none;
+}
+
+#home_splash input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"] {
+  height: 26px;
+  font-weight: 200;
+  font-size: 13px;
 }

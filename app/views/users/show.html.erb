@@ -1,0 +1,20 @@
+<div class="twelve columns">
+  <h2><%= @user.full_name %></h2>
+</div>
+
+<div class="twelve columns">
+  <div class="avatar two columns th">
+    <%= image_tag @user.image.url %>
+  </div>
+
+  <div id="courses_by" class="ten columns end">
+    <h2>Courses By This User</h2>
+    <ul class="unstyled">
+      <% @courses_by.each do |course| %>
+        <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+      <% end %>
+    </ul>
+    <%= paginate @courses_by %>
+  </div>
+
+</div>

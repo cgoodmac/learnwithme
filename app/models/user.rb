@@ -15,10 +15,13 @@
 #  description     :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  full_name       :string(255)
+#  uid             :string(255)
+#  provider        :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :first_name, :last_name, :full_name, :password, :password_confirmation, :is_admin, :is_teacher, :is_pro, :description
+  attr_accessible :email, :first_name, :last_name, :full_name, :password, :password_confirmation, :is_admin, :is_teacher, :is_pro, :description, :uid, :provider, :remote_image_url
 
   has_secure_password
   # validates :email, :password_digest, :presence => true
@@ -26,5 +29,28 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :courses
   has_many :taught_courses, :class_name => 'Course', :foreign_key => 'teacher_id'
+  has_many :notes, :through => :courses
+
   mount_uploader :image, ImageUploader
+
+  def self.from_omniauth(auth)
+    where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
+  end
+
+  def self.create_from_omniauth(auth)
+    user = User.new
+    user.full_name = auth[:info][:name]
+    user.uid = auth[:uid]
+    user.provider = auth[:provider]
+
+    pass = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+
+    user.password = pass
+    user.password_confirmation = pass
+    user.save
+    user
+  end
+
+  acts_as_voter
+  
 end

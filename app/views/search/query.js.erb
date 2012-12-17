@@ -1,0 +1,19 @@
+$('#search_results').empty();
+
+<% if @courses.count > 0 %>
+  <% @courses.each do |course| %>
+    var coursediv  = $('<div>');
+    var coursepill = $('<div>');
+    coursediv.addClass('course_div three columns');
+    coursepill.addClass('course_pill panel');
+    $(coursepill).prepend('<h4><%= link_to course.title, course_path(course) %></h4>');
+    $(coursepill).prepend('<%=j link_to image_tag(course.image.url), course_path(course), :class => 'th' %>');
+    $(coursediv).prepend(coursepill);
+    $('#search_results').prepend(coursediv);
+  <% end %>
+    $('#search_results').append('<%=j paginate @courses, :remote => true %>')
+<% else %>
+  $('#search_results').prepend('<h2>No Results Matched Your Query!</h2>');
+<% end %>
+
+$('#search_results').prepend('<h2>Search Results</h2>');

@@ -5,11 +5,20 @@ Lifehacks::Application.routes.draw do
   resources :courses
   resources :ebooks
   resources :videos
-  
+  resources :categories
+  resources :notes
+
   get '/logout' => 'sessions#destroy'
   post '/login' => 'sessions#create'
   get 'dashboard' => 'home#dashboard'
 
+  match '/auth/:provider/callback' => 'sessions#twittercreate'
+  match '/auth/failure' => redirect('/')
+  get '/search' => 'search#index'
+  get '/query' => 'search#query'
+  post '/vote' => 'votes#vote'
+  post '/save' => 'courses#save'
+  
   # Lets you see all the icons available to you
   mount Foundation::Icons::Rails::Engine => '/fi'
 

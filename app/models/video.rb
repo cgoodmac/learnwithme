@@ -9,6 +9,7 @@
 #  image       :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  duration    :integer
 #
 
 class Video < ActiveRecord::Base

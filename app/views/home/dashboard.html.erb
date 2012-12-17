@@ -1,5 +1,54 @@
-<h1>Dashboard for <%= @auth.email %></h1>
+<div class="twelve columns">
+ <h2>Dashboard for <%= @auth.try(:full_name) %></h2>
+</div>
+<div class="twelve columns">
+  <div class="avatar two columns th">
+    <%= image_tag @auth.image.url %>
+  </div>
+  
+  <% if @auth.courses.any? %>
+    <div id="user_courses" class="six columns end">
+        <h3>Your Saved Courses</h3>
+          <ul class="accordion">
+          <% @auth.courses.each do |course| %>
+              <li>
+                <div class="title">
+                  <%= link_to course.title, course %>
+                </div>
+                <div class="content">
+                  <h4>Notes</h4>
+                  <table class="twelve">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Subject</th>
+                      </tr>
+                    </thead>
+                  <% notes_array = Note.where(:course_id => course.id).where(:user_id => @auth.id) %> 
+                  <% notes_array.each do |note| %>
+                    <tr>
+                      <td><%= note.created_at.to_s %></td>
+                      <td><%= link_to note.subject, note %></td>
+                    </tr>  
+                  <% end %>
+                  </table>
+                </div>
+              </li> 
+          <% end %>
+          </ul>
+    </div>
+  <% else %>
+    <div id="courses" class="ten columns end">
+      <h3>You Haven't Saved Any Courses Yet! Try These:</h3>
+      <% @sample.each do |course| %>
+        <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+      <% end %>
+    </div>
+  <% end %>
 
-<% if @auth.is_admin == "on" %>
-  <%= link_to 'Create New Course', new_course_path %>
-<% end %>
+  <div id="create">
+  </div>
+  <%# if @auth.is_admin == "on" %>
+    <%#= link_to 'Create New Course', new_course_path %>
+  <%# end %>
+</div>

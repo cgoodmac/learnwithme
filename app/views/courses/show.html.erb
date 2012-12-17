@@ -1,12 +1,12 @@
+<div class="twelve columns">
 <h2><%= @course.title %></h2>
+</div>
 
-<div class="clearfix">
+<div class="eight columns clearfix">
 
   <% if @course.videos.any? %>
     <%= render :partial => 'shared/video', :locals => {:video => @course.videos.first.link} %>
   <% end %>
-
-  <%= @teacher.full_name %>
 
   <% if @course.ebooks.any? %>
     <%= render :partial => 'shared/ebook', :locals => {:ebook_file => @course.ebooks.first.ebook_file.url, :ebook_title => @course.ebooks.first.title, :ebook_image => @course.ebooks.first.image.url }  %>
@@ -15,17 +15,108 @@
   <% if @course.audios.any? %>
     <%= render :partial => 'shared/audio', :locals => { :audio_title => @course.audios.first.title, :audio_file => @course.audios.first.audio_file }  %>
   <% end %>
+</div>
 
-  <div id="course-image">
-    <%= image_tag @course.image.url, :class => "img-polaroid" %>
-  </div>
+<div class="four columns clearfix" id="notes">
+  <h3>Notes</h3>
+  <%= form_tag('/notes', :remote => true) do %>
+    <%= text_field_tag 'subject' %>
+    <%= text_area_tag 'content', nil, :rows => 12 %>
+    <%= hidden_field_tag 'course_id', @course.id %>
+    <%= submit_tag 'Save Notes', :class => 'button' %> <div class="note-alerts"></div>
+  <% end %>
+</div>
 
-  <%= link_to 'Edit', edit_course_path %> | 
-  <%= link_to 'Delete', @course, data: { confirm: 'Are you sure?' }, :method => :delete %>
+<div class="row">
+  <div class="twelve columns">
+    <div id="course-image" class="four columns">
+      <%= link_to image_tag(@course.image.url), @teacher, :class => "th" %>
+      <h3><%= link_to @teacher.full_name, @teacher %></h3>
+      <h3>In
+        <% @course.categories.each do |category| %>
+          <%= link_to category.name, category %>
+        <% end %>
+      </h3>
+      <h3>Users Who Have Added This Course</h3>
+      <h3>
+        <% @course.users.each do |user| %>
+          <%= link_to user.full_name, user %>&nbsp;
+        <% end %>
+      </h3>
+    </div>
+      <div id="course-description" class="eight columns">
 
-    <div id="course-description" class="well">
-      <h2>Description</h2>
-      <%= @course.description %>
+        <div id="vote-wrapper" class="row">
+
+          <div id="social-buttons" class="five columns">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style ">
+              <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+              <a class="addthis_button_tweet"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7910806d51cb95"></script>
+            <!-- AddThis Button END -->
+          </div>
+          
+          <div id="updown" class="three columns">
+            <div class="six columns">
+              <%= link_to vote_path(:course_id => @course.id, :vote => "up"), :method => :post, :remote => true do %>
+                <span class="glyph social">a</span>
+              <% end %><br>
+              <%= @course.votes_for %>
+            </div>
+            <div class="six columns">
+              <%= link_to vote_path(:course_id => @course.id, :vote => "down"), :method => :post, :remote => true do %>
+                <span class="glyph social">b</span>
+              <% end %>
+              <%= @course.votes_against %>
+            </div>  
+          </div>
+          
+          <div id="bookmark" class="four columns">
+            <%= button_to('Add to Your Courses', save_path(:course_id => @course.id), :class => 'button', :method => :post, :remote => true) %>
+          </div>
+        </div>
+
+        <dl class="tabs contained">
+          <dd class="active"><a href="#simpleContained1">Description</a></dd>
+          <dd><a href="#simpleContained2">Notes</a></dd>
+        </dl>
+        <ul class="tabs-content contained">
+          <li class="active" id="simpleContained1Tab">
+            <h2>Description</h2>
+            <p><%= @course.description %></p>
+          </li>
+          <li id="simpleContained2Tab">
+            <h2>Notes</h2>
+            <% if @auth != nil %>
+              <table class="twelve">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Subject</th>
+                  </tr>
+                </thead>
+              <% @notes_array.each do |note| %>
+                <tr>
+                  <td><%= note.created_at.to_s %></td>
+                  <td><%= link_to note.subject, note %></td>
+                </tr>  
+              <% end %>
+              </table>
+            <% else %>
+              <p>No notes saved yet, type some above!</p>
+            <% end %>
+          </li>
+        </ul>
+
+      </div>
+
+    <% if @auth != nil && @course.teacher_id == @auth.id || @auth != nil && @auth.is_admin == "on" %>
+      <%= link_to 'Edit', edit_course_path %> | 
+      <%= link_to 'Delete', @course, data: { confirm: 'Are you sure?' }, :method => :delete %>
+    <% end %>
     </div>
   </div>
 </div>

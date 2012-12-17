@@ -1,6 +1,12 @@
+<div class="twelve columns">
+  <h2>Users</h2>
+</div>
+
+<div class="twelve columns">
 <ul>
   <% @users.each do |user| %>
-    <li><%= link_to user.email, user %></li>
-    <br>
+    <%= render :partial => 'shared/userdiv', :locals => { :user => user }  %>
   <% end %>
+  <%= paginate @users %>
 </ul>
+</div>

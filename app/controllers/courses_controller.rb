@@ -1,13 +1,17 @@
 class CoursesController < ApplicationController
 
   def index
-    @courses = Course.all
+    @courses = Course.page(params[:page])
   end
 
   def show
     course_id = params[:id]
     @course = Course.find(course_id)
     @teacher = User.find(@course.teacher_id)
+
+    if @auth != nil
+     @notes_array = Note.where(:course_id => @course.id).where(:user_id => @auth.id)
+    end
   end
 
   def new
@@ -27,8 +31,6 @@ class CoursesController < ApplicationController
   end
 
   def create
-
-    binding.pry
     
     teacher_first = params[:teacher].split(' ').first
     teacher_last = params[:teacher].split(' ').last
@@ -80,6 +82,17 @@ class CoursesController < ApplicationController
     redirect_to courses_path
   end
 
+  def save
+    course = Course.find(params[:course_id])
 
+    if @auth.courses.include? course
+    else  
+      @auth.courses << course
+    end
+  end
+
+  def popular
+
+  end
 
 end

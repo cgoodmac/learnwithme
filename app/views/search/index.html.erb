@@ -1,0 +1,16 @@
+<div class="twelve columns">
+  <h2>Search for Courses</h2>
+</div>
+
+<div class="twelve columns">
+  <div id="search_form" class="six columns">
+    <%= form_tag '/query', :method => :get, :remote => true do %>
+      <%= text_field_tag 'query', nil, :placeholder => 'Search for courses', :class => 'search-query' %>
+      <%= submit_tag 'Submit', :class => 'button' %>
+    <% end %>
+  </div>
+</div>
+
+<div id="search_results" class="twelve columns">
+
+</div>
