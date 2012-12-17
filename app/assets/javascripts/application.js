@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require 'foundation.js'
+//= require foundation
 //= require 'jquery.backstretch.min.js'
 //= require 'lifehacks.js'
