@@ -21,6 +21,8 @@ gem 'nokogiri'
 gem 'fastimage'
 gem 'public_activity'
 gem 'acts_as_follower'
+gem 'compass-rails'
+gem 'zurb-foundation'
 
 group :development do
   gem 'pry-rails'
