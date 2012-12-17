@@ -15,3 +15,4 @@
 //= require foundation
 //= require 'jquery.backstretch.min.js'
 //= require 'lifehacks.js'
+//= require_tree .

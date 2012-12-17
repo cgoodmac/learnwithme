@@ -12,4 +12,5 @@
  *= require foundation_and_overrides
  *= require 'foundation-icons.css'
  *= require 'main.css'
+ *= require_tree .
  */
