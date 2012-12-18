@@ -5,9 +5,16 @@ alertify.success( 'Note saved! Add more!' );
 
 $('#my-notes').empty();
 
+$('#my-notes-tab').empty();
+$('#my-notes-tab').prepend('<a href="#simple2">Your Notes (<%= @notes_array.count %>)</a>');
+
+$('#all-notes-tab').empty();
+$('#all-notes-tab').prepend('<a href="#simple3">All Notes (<%= @all_notes_array.count %>)</a>');
+
 <% @notes_array.each do |note| %>
   $('#my-notes').prepend("<%=j render :partial => 'shared/yournote', :locals => { :note => note }  %>");
 <% end %>
+
 
 $('#all-notes').empty();
 
@@ -18,3 +25,4 @@ $('#all-notes').empty();
 $('#bookmark').empty();
 
 $('#bookmark').prepend('<a class="button disabled" href="#">Course saved!</a>');
+

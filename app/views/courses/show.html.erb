@@ -82,8 +82,8 @@
 
         <dl class="tabs">
           <dd class="active"><a href="#simple1">Description</a></dd>
-          <dd><a href="#simple2">Your Notes</a></dd>
-          <dd><a href="#simple3">All Notes</a></dd>
+          <dd id="my-notes-tab"><a href="#simple2">My Notes (<%= @notes_array.count %>)</a></dd>
+          <dd id="all-notes-tab"><a href="#simple3">All Notes (<%= @all_notes_array.count %>)</a></dd>
         </dl>
         <ul class="tabs-content">
           <li class="active" id="simple1Tab">
@@ -92,7 +92,7 @@
           </li>
           <li id="simple2Tab">
             <div class="twelve columns">   
-              <h2>Your Notes</h2>
+              <h2>My Notes</h2>
             </div>
             <div id="my-notes" class="twelve columns">
               <% if @auth != nil %>
