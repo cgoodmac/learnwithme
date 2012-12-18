@@ -7,5 +7,10 @@ module ApplicationHelper
     end
   end
 
-
+  def dynamic_create_course_link
+    if @auth
+      link_to "Create Course", new_course_path
+    else
+    end
+  end
 end

@@ -1,0 +1,15 @@
+<div class="twelve columns">
+  <h2><%= @note.subject %></h2>
+</div>
+
+<div class="six columns end">
+  <div class="edit-back twelve columns">
+    <%= link_to 'Edit', edit_note_path(@note) %> | <%= link_to 'Back', dashboard_path %>
+  </div>
+
+  <div class="twelve columns">
+    <%= @note.content %>
+  </div>
+</div>
+
+

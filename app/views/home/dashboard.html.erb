@@ -2,8 +2,28 @@
  <h2>Dashboard for <%= @auth.try(:full_name) %></h2>
 </div>
 <div class="twelve columns">
-  <div class="avatar two columns th">
+  <div class="avatar three columns th">
     <%= image_tag @auth.image.url %>
+    <% if @auth.all_following.any? %>
+      <div class="twelve columns" id="following-grid">
+        <h3>Following</h3>
+        <h4>
+          <% @auth.all_following.each do |follow| %>
+            <%= link_to follow.full_name, follow %>&nbsp;
+          <% end %>
+        </h4>
+      </div>
+    <% end %>
+    <% if @auth.followers.any? %>
+      <div class="twelve columns" id="follower-grid">
+        <h3>Followed By</h3>
+        <h4>
+          <% @auth.followers.each do |follow| %>
+            <%= link_to follow.full_name, follow %>&nbsp;
+          <% end %>
+        </h4>
+      </div>
+    <% end %>
   </div>
   
   <% if @auth.courses.any? %>
@@ -38,7 +58,7 @@
           </ul>
     </div>
   <% else %>
-    <div id="courses" class="ten columns end">
+    <div id="courses" class="nine columns end">
       <h3>You Haven't Saved Any Courses Yet! Try These:</h3>
       <% @sample.each do |course| %>
         <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>

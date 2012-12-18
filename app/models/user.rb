@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :courses
   has_many :taught_courses, :class_name => 'Course', :foreign_key => 'teacher_id'
   has_many :notes, :through => :courses
+  has_many :events
 
   mount_uploader :image, ImageUploader
 

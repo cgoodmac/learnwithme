@@ -12,6 +12,8 @@ class CoursesController < ApplicationController
     if @auth != nil
      @notes_array = Note.where(:course_id => @course.id).where(:user_id => @auth.id)
     end
+
+    @all_notes_array = Note.where(:course_id => @course.id)
   end
 
   def new
@@ -32,10 +34,6 @@ class CoursesController < ApplicationController
 
   def create
     
-    teacher_first = params[:teacher].split(' ').first
-    teacher_last = params[:teacher].split(' ').last
-    teacher_id = User.where(:is_teacher => "on").where(:first_name => teacher_first).where(:last_name => teacher_last).first.id
-
     c = Course.new
 
     c.title = params[:title]
@@ -43,7 +41,7 @@ class CoursesController < ApplicationController
     c.price = params[:price]
     c.image_cache = params[:image_cache]
     c.remote_image_url = params[:remote_image_url]
-    c.teacher_id = teacher_id
+    c.teacher_id = @auth.id
     c.save
 
     if params[:video_link] != ""
@@ -58,11 +56,12 @@ class CoursesController < ApplicationController
     end
 
     if params[:audio_file] != ""
-      params[:audio_title] ||= "Untitled book"
+      params[:audio_title] ||= "Untitled"
       audio = Audio.create(:title => params[:audio_title], :audio_file => params[:audio_file])
       c.audios << audio
     end
 
+    e = Event.new(:string => "#{@auth.full_name} created a course", :user_id => @auth.id)
     redirect_to courses_path
   end
 
@@ -92,7 +91,7 @@ class CoursesController < ApplicationController
   end
 
   def popular
-
+    @courses = Course.plusminus_tally.page(params[:page])
   end
 
 end

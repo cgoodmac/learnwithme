@@ -1,0 +1,10 @@
+<div class="twelve columns">
+  <h2>Popular Courses</h2>
+</div>
+
+<div id="courses_index" class="twelve columns">
+  <% @courses.each do |course| %>
+    <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+  <% end %>
+  <%= paginate @courses %>
+</div>

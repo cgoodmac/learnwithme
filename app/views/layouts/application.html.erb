@@ -19,8 +19,9 @@
         <ul class="left">
           <li><%= link_to "Search", search_path %></li>
           <li><%= link_to "Browse Categories", categories_path %></li>
+          <li><%= link_to "Popular", popular_path %></li>
           <li><%= link_to "Users", users_path %></li>
-          <li><%= link_to "Create a Course", new_course_path %></li>
+          <li><%= dynamic_create_course_link %></li>
         </ul>
 
         <ul class="right">

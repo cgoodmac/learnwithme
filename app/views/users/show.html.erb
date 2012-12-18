@@ -7,7 +7,7 @@
     <%= image_tag @user.image.url %>
     <div id="follow-button">
       <% if @auth && @auth.following?(@user) %>
-        <%=j button_to('Unfollow', unfollow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
+        <%= button_to('Unfollow', unfollow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
       <% else %>
         <%= button_to('Follow', follow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
       <% end %>

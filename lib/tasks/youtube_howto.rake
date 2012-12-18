@@ -18,7 +18,7 @@ namespace :youtube  do
       cat_sym = category.name.to_sym
 
       query = client.videos_by(:categories => [cat_sym], :duration => "long", :max_results => 50, :users => {:exclude => ['khanacademy']}, :per_page => 50, :page => category.page)
-
+      
       query.videos.each do |entry|
         title = entry.title
 

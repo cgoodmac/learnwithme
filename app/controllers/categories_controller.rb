@@ -5,6 +5,6 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @courses = @category.courses.order("title asc").page(params[:page])
+    @courses = @category.courses.plusminus_tally.page(params[:page])
   end
 end

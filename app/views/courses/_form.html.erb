@@ -14,18 +14,8 @@
       </div>
 
       <div class="field">
-        <%= label_tag 'teacher' %>
-        <%= select_tag(:teacher, options_for_select(@teachers)) %>
-      </div>
-
-      <div class="field">
         <%= label_tag 'description' %>
         <%= text_area_tag 'description', nil, :rows => "5" %>
-      </div>
-
-      <div class="field">
-        <%= label_tag 'price' %>
-        <%= number_field_tag 'price' %>
       </div>
 
       <div class="field">

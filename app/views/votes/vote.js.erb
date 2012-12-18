@@ -1,9 +1,5 @@
 $('#updown').empty();
 
-$('#updown').text('Thanks for voting!');
+$('#updown').prepend('<div class="six columns"><span class="glyph social">a</span><br><%= @course.votes_for %></div><div class="six columns"><span class="glyph social">b</span><br><%= @course.votes_against %></div>');
 
-$('#course-tally').empty();
-
-$('#course-tally').prepend('<%= @course.votes_against  %>');
-
-$('#course-tally').prepend('<%= @course.votes_for  %>');
+alertify.success( 'Thanks for voting! Your vote helps surface the best courses.' ); 

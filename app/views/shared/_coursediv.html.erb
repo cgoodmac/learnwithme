@@ -2,5 +2,8 @@
   <div class="course_pill panel">
     <%= link_to image_tag(course.image.url), course %>
     <h4><%= link_to course.title, course%></h4>
+    <div class="votes">
+      <span class="glyph social">a</span> <%= course.votes_for %> <span class="glyph social">b</span> <%= course.votes_against %>
+    </div>
   </div>
 </div>

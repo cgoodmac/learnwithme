@@ -21,9 +21,10 @@
   <h3>Notes</h3>
   <%= form_tag('/notes', :remote => true) do %>
     <%= text_field_tag 'subject' %>
-    <%= text_area_tag 'content', nil, :rows => 12 %>
+    <%= text_area_tag 'content', nil, :rows => 13 %>
     <%= hidden_field_tag 'course_id', @course.id %>
-    <%= submit_tag 'Save Notes', :class => 'button' %> <div class="note-alerts"></div>
+    <%= submit_tag 'Save Notes', :class => 'button' %>
+    <div class="note-alerts"></div>
   <% end %>
 </div>
 
@@ -81,7 +82,8 @@
 
         <dl class="tabs contained">
           <dd class="active"><a href="#simpleContained1">Description</a></dd>
-          <dd><a href="#simpleContained2">Notes</a></dd>
+          <dd><a href="#simpleContained2">Your Notes</a></dd>
+          <dd><a href="#simpleContained3">All Notes</a></dd>
         </dl>
         <ul class="tabs-content contained">
           <li class="active" id="simpleContained1Tab">
@@ -89,28 +91,50 @@
             <p><%= @course.description %></p>
           </li>
           <li id="simpleContained2Tab">
-            <h2>Notes</h2>
-            <% if @auth != nil %>
-              <table class="twelve">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Subject</th>
-                  </tr>
-                </thead>
-              <% @notes_array.each do |note| %>
-                <tr>
-                  <td><%= note.created_at.to_s %></td>
-                  <td><%= link_to note.subject, note %></td>
-                </tr>  
+            <h2>Your Notes</h2>
+            <div id="my-notes">
+              <% if @auth != nil %>
+                <table class="twelve">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Subject</th>
+                    </tr>
+                  </thead>
+                  <% @notes_array.each do |note| %>
+                    <tr>
+                      <td><%= note.created_at.to_s %></td>
+                      <td><%= link_to note.subject, note %></td>
+                    </tr>  
+                  <% end %>
+                </table>
+              <% else %>
+                <p>No notes saved yet, type some above!</p>
               <% end %>
-              </table>
-            <% else %>
-              <p>No notes saved yet, type some above!</p>
-            <% end %>
+            </div>
+          </li>
+          <li id="simpleContained3Tab">
+            <h2>All Notes</h2>
+              <div id="all-notes">
+                <table class="twelve">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>User</th>
+                      <th>Subject</th>
+                    </tr>
+                  </thead>
+                  <% @all_notes_array.each do |note| %>
+                    <tr>
+                      <td><%= note.created_at.to_s %></td>
+                      <td><%= link_to note.user.full_name, note.user %></td>
+                      <td><%= link_to note.subject, note %></td>
+                    </tr>  
+                  <% end %>
+                </table>
+              </div>
           </li>
         </ul>
-
       </div>
 
     <% if @auth != nil && @course.teacher_id == @auth.id || @auth != nil && @auth.is_admin == "on" %>

@@ -12,4 +12,6 @@
  *= require 'foundation_and_overrides.css'
  *= require 'foundation-icons.css'
  *= require 'main.css'
+ *= require 'alertify.core.css'
+ *= require 'alertify.default.css'
  */
