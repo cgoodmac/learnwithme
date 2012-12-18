@@ -5,13 +5,19 @@ class NotesController < ApplicationController
     else
       note = Note.create(:subject => params[:subject], :content => params[:content], :user_id => @auth.id, :course_id => params[:course_id])
     
-      course = Course.find(params[:course_id])
+      @course = Course.find(params[:course_id])
 
-      if @auth.courses.include? course
+      if @auth.courses.include? @course
       else
-        @auth.courses << course
+        @auth.courses << @course
       end 
     end  
+
+
+    @notes_array = Note.where(:course_id => @course.id).where(:user_id => @auth.id)
+
+    @all_notes_array = Note.where(:course_id => @course.id)
+
   end
 
   def show

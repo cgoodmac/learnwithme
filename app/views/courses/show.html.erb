@@ -80,59 +80,39 @@
           </div>
         </div>
 
-        <dl class="tabs contained">
-          <dd class="active"><a href="#simpleContained1">Description</a></dd>
-          <dd><a href="#simpleContained2">Your Notes</a></dd>
-          <dd><a href="#simpleContained3">All Notes</a></dd>
+        <dl class="tabs">
+          <dd class="active"><a href="#simple1">Description</a></dd>
+          <dd><a href="#simple2">Your Notes</a></dd>
+          <dd><a href="#simple3">All Notes</a></dd>
         </dl>
-        <ul class="tabs-content contained">
-          <li class="active" id="simpleContained1Tab">
+        <ul class="tabs-content">
+          <li class="active" id="simple1Tab">
             <h2>Description</h2>
             <p><%= @course.description %></p>
           </li>
-          <li id="simpleContained2Tab">
-            <h2>Your Notes</h2>
-            <div id="my-notes">
+          <li id="simple2Tab">
+            <div class="twelve columns">   
+              <h2>Your Notes</h2>
+            </div>
+            <div id="my-notes" class="twelve columns">
               <% if @auth != nil %>
-                <table class="twelve">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Subject</th>
-                    </tr>
-                  </thead>
-                  <% @notes_array.each do |note| %>
-                    <tr>
-                      <td><%= note.created_at.to_s %></td>
-                      <td><%= link_to note.subject, note %></td>
-                    </tr>  
-                  <% end %>
-                </table>
+                <% @notes_array.each do |note| %>
+                  <%= render :partial => 'shared/yournote', :locals => { :note => note }  %>
+                <% end %>
               <% else %>
                 <p>No notes saved yet, type some above!</p>
               <% end %>
             </div>
           </li>
-          <li id="simpleContained3Tab">
-            <h2>All Notes</h2>
-              <div id="all-notes">
-                <table class="twelve">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>User</th>
-                      <th>Subject</th>
-                    </tr>
-                  </thead>
-                  <% @all_notes_array.each do |note| %>
-                    <tr>
-                      <td><%= note.created_at.to_s %></td>
-                      <td><%= link_to note.user.full_name, note.user %></td>
-                      <td><%= link_to note.subject, note %></td>
-                    </tr>  
-                  <% end %>
-                </table>
-              </div>
+          <li id="simple3Tab">
+            <div class="twelve columns">   
+              <h2>All Notes</h2>
+            </div>
+            <div id="all-notes" class="twelve columns">
+              <% @all_notes_array.each do |note| %>
+                <%= render :partial => 'shared/note', :locals => { :note => note }  %>
+              <% end %>
+            </div>
           </li>
         </ul>
       </div>

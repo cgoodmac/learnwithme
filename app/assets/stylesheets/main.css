@@ -46,6 +46,14 @@ h4 {
 #updown .glyph {
   font-size: 30px; }
 
+#bookmark {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+dl .tabs {
+  margin-top: 10px;
+}
 .pagination {
   clear: both;
   font-size: 16px;

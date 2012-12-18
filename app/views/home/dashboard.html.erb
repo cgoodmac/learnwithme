@@ -2,7 +2,7 @@
  <h2>Dashboard for <%= @auth.try(:full_name) %></h2>
 </div>
 <div class="twelve columns">
-  <div class="avatar three columns th">
+  <div class="avatar two columns th">
     <%= image_tag @auth.image.url %>
     <% if @auth.all_following.any? %>
       <div class="twelve columns" id="following-grid">

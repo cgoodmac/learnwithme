@@ -2,3 +2,15 @@ $('#subject').val('');
 $('#content').val('');
 
 alertify.success( 'Note saved! Add more!' ); 
+
+$('#my-notes').empty();
+
+<% @notes_array.each do |note| %>
+  $('#my-notes').prepend("<%=j render :partial => 'shared/yournote', :locals => { :note => note }  %>");
+<% end %>
+
+$('all-notes').empty();
+
+<% @all_notes_array.each do |note| %>
+   $('#all-notes').prepend("<%=j render :partial => 'shared/note', :locals => { :note => note }  %>");
+<% end %>
