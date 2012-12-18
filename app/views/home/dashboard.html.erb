@@ -29,9 +29,19 @@
     </div>
   <% else %>
     <div id="courses" class="five columns">
-      <h3>You Haven't Saved Any Courses Yet! Try These:</h3>
+      <h3>You Haven't Saved Any Courses Yet! Try This One:</h3>
       <% @sample.each do |course| %>
-        <%= render :partial => 'shared/bigcoursediv', :locals => { :course => course }  %>
+        <div class="course_div twelve columns th" id="big_course_div">
+          <div class="course_pill panel">
+            <%= link_to image_tag(course.image.url), course %>
+            <h4><%= link_to course.title, course%></h4>
+            <% category = course.categories.first %>
+            <span class="votes">
+              <span class="glyph social">a</span> <%= course.votes_for %> <span class="glyph social">b</span> <%= course.votes_against %>
+            </span>
+            <div class="category"><%= link_to category.name, category  %></div>
+          </div>
+        </div>
       <% end %>
     </div>
   <% end %>
@@ -40,28 +50,27 @@
       <h3>Recent Activity</h3>
     </div>
     <div class="twelve columns">
-      <ul class="unstyled">
-        <% @events.each do |event| %>
-          <% user = User.find(event.user_id) %>
-          <% course = Course.find(event.course_id) %>
-          <li>
-            <div class="twelve columns panel">
-              <div class="eight columns">
-                <%= link_to user.full_name, user %> <%= event.event %><br>
-                <%= link_to course.title, course %>
+      <% if @events.any? %>
+        <ul class="unstyled">
+          <% @events.each do |event| %>
+            <% user = User.find(event.user_id) %>
+            <% course = Course.find(event.course_id) %>
+            <li>
+              <div class="twelve columns panel">
+                <div class="eight columns">
+                  <%= link_to user.full_name, user %> <%= event.event %><br>
+                  <%= link_to course.title, course %>
+                </div>
+                <div class="four columns">
+                  <%= event.created_at.strftime("%d %b %Y") %>
+                </div>  
               </div>
-              <div class="four columns">
-                <%= event.created_at.strftime("%d %b %Y") %>
-              </div>  
-            </div>
-          </li>
-        <% end %>
-      </ul>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No activity yet! Follow some <%= link_to 'users', usersearch_path %>!</p>
+      <% end %>
     </div>
   </div>
-  <div id="create">
-  </div>
-  <%# if @auth.is_admin == "on" %>
-    <%#= link_to 'Create New Course', new_course_path %>
-  <%# end %>
 </div>

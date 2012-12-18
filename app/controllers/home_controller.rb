@@ -21,7 +21,7 @@ class HomeController < ApplicationController
 
   def dashboard
     notmine = Course.all - @auth.courses
-    @sample = notmine.sample(2)
+    @sample = notmine.sample(1)
 
     following_id_array = []
     @events = []
