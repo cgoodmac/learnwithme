@@ -15,17 +15,20 @@
     <%= render :partial => 'shared/followbox', :locals => { :user => @user }  %>
   </div>
 
-  <div id="courses_by" class="five columns">
-    <h3>Courses By This User</h3>
-    <ul class="unstyled">
-      <% @courses_by.each do |course| %>
-        <%= render :partial => 'shared/bigcoursediv', :locals => { :course => course }  %>
-      <% end %>
-    </ul>
-    <%= paginate @courses_by %>
-  </div>
+  <% if @courses_by.any? %>
+    <div id="courses_by" class="five columns">
+      <h3>Courses By This User</h3>
+      <ul class="unstyled">
+        <% @courses_by.each do |course| %>
+          <%= render :partial => 'shared/bigcoursediv', :locals => { :course => course }  %>
+        <% end %>
+      </ul>
+      <%= paginate @courses_by %>
+    </div>
+  <% else %>
+  <% end %>
 
-  <div id="user_courses" class="five columns">
+  <div id="user_courses" class="five columns end">
     <h3><%= @user.full_name %>'s Saved Courses</h3>
       <% if @user.courses.any? %>
         <ul class="accordion">
