@@ -4,7 +4,9 @@ class NotesController < ApplicationController
 
     else
       note = Note.create(:subject => params[:subject], :content => params[:content], :user_id => @auth.id, :course_id => params[:course_id])
-    
+      
+      e = Event.create(:event => "wrote a note", :user_id => @auth.id, :course_id => params[:course_id], :note_id => note.id)
+
       @course = Course.find(params[:course_id])
 
       if @auth.courses.include? @course
@@ -12,7 +14,6 @@ class NotesController < ApplicationController
         @auth.courses << @course
       end 
     end  
-
 
     @notes_array = Note.where(:course_id => @course.id).where(:user_id => @auth.id)
 
@@ -27,13 +28,14 @@ class NotesController < ApplicationController
 
   def edit
     @note = Note.find(params[:id])
+    @course = Course.find(@note.course_id)
   end
 
   def update
     @note = Note.find(params[:id])
 
     if @note.update_attributes(params[:note])
-      redirect_to @note, notice: 'Note was successfully updated.'
+      redirect_to dashboard_path, notice: 'Note was successfully updated.'
     else
       render action: "edit" 
     end

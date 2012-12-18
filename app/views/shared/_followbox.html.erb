@@ -1,0 +1,20 @@
+<% if user.all_following.any? %>
+  <div class="twelve columns">
+    <h3>Following</h3>
+    <h4>
+      <% user.all_following.each do |follow| %>
+        <%= link_to follow.full_name, follow %>&nbsp;
+      <% end %>
+    </h4>
+  </div>
+<% end %>
+<% if user.followers.any? %>
+  <div class="twelve columns">
+    <h3>Followed By</h3>
+    <h4>
+      <% user.followers.each do |follow| %>
+        <%= link_to follow.full_name, follow %>&nbsp;
+      <% end %>
+    </h4>
+  </div>
+<% end %>

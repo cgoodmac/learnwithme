@@ -55,6 +55,9 @@ namespace :youtube  do
           category.courses << c
 
           c.save
+
+          e = Event.create(:event => "created a course", :user_id => u.id, :course_id => c.id)
+          
         end
       end
       

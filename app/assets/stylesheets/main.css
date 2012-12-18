@@ -51,14 +51,18 @@ h4 {
   font-weight: bold;
 }
 
-dl .tabs {
-  margin-top: 10px;
+#vote-wrapper {
+  margin-bottom: 10px;
 }
+
 .pagination {
   clear: both;
   font-size: 16px;
   margin: 10px; }
 
+.admin_links {
+  margin-top:5px;
+}
 #notes h3 {
   margin-top: 0px; }
 

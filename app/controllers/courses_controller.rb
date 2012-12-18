@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
   end
 
   def create
-    
+
     c = Course.new
 
     c.title = params[:title]
@@ -42,7 +42,14 @@ class CoursesController < ApplicationController
     c.image_cache = params[:image_cache]
     c.remote_image_url = params[:remote_image_url]
     c.teacher_id = @auth.id
-    c.save
+
+
+    cat_name = params[:category]
+    category = Category.where(:name => cat_name).first
+
+    if category.nil?
+      category = Category.create(:name => cat_name, :page => 1)   
+    end
 
     if params[:video_link] != ""
       v = Video.create(:title => params[:video_title], :link => params[:video_link])
@@ -61,8 +68,13 @@ class CoursesController < ApplicationController
       c.audios << audio
     end
 
-    e = Event.new(:string => "#{@auth.full_name} created a course", :user_id => @auth.id)
+    c.save
+
+    category.courses << c
+
+    e = Event.create(:event => "#created a course", :user_id => @auth.id, :course_id => c.id)
     redirect_to courses_path
+
   end
 
   def update
@@ -88,6 +100,9 @@ class CoursesController < ApplicationController
     else  
       @auth.courses << course
     end
+
+    e = Event.create(:event  => "saved a course", :user_id => @auth.id, :course_id => course.id)
+  
   end
 
   def popular

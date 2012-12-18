@@ -1,5 +1,24 @@
-<h2>Editing Note <%= @note.subject %></h2>
+<div class="twelve columns">
+  <h2>Editing Note</h2>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', dashboard_path %>
+<div class="three columns">
+  <div class="course_div twelve columns th">
+    <div class="course_pill panel">
+      <%= link_to image_tag(@course.image.url), @course %>
+      <h4><%= link_to @course.title, @course%></h4>
+      <% category = @course.categories.first %>
+      <span class="votes">
+        <span class="glyph social">a</span> <%= @course.votes_for %> <span class="glyph social">b</span> <%= @course.votes_against %>
+      </span>
+      <div class="category"><%= link_to category.name, category  %></div>
+    </div>
+  </div>
+</div>
+<div class="six columns end">
+  <%= render 'form' %>
+  Note created at <%= @note.created_at.strftime("%d %b %Y") %><br>
+  <div class="admin_links">
+  <%= link_to 'Back', dashboard_path %> | <%= link_to 'Delete note', @note, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>

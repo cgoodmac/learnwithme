@@ -9,8 +9,12 @@ $('#my-notes').empty();
   $('#my-notes').prepend("<%=j render :partial => 'shared/yournote', :locals => { :note => note }  %>");
 <% end %>
 
-$('all-notes').empty();
+$('#all-notes').empty();
 
 <% @all_notes_array.each do |note| %>
    $('#all-notes').prepend("<%=j render :partial => 'shared/note', :locals => { :note => note }  %>");
 <% end %>
+
+$('#bookmark').empty();
+
+$('#bookmark').prepend('<a class="button disabled" href="#">Course saved!</a>');

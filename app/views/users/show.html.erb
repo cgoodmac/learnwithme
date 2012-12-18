@@ -12,16 +12,41 @@
         <%= button_to('Follow', follow_path(:user_id => @user.id), :class => 'button', :method => :post, :remote => true) %>
       <% end %>
     </div>
+    <%= render :partial => 'shared/followbox', :locals => { :user => @user }  %>
   </div>
 
-  <div id="courses_by" class="ten columns end">
-    <h2>Courses By This User</h2>
+  <div id="courses_by" class="five columns">
+    <h3>Courses By This User</h3>
     <ul class="unstyled">
       <% @courses_by.each do |course| %>
-        <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+        <%= render :partial => 'shared/bigcoursediv', :locals => { :course => course }  %>
       <% end %>
     </ul>
     <%= paginate @courses_by %>
+  </div>
+
+  <div id="user_courses" class="five columns">
+    <h3><%= @user.full_name %>'s Saved Courses</h3>
+      <% if @user.courses.any? %>
+        <ul class="accordion">
+          <% @user.courses.each do |course| %>
+            <li>
+              <div class="title">
+                <%= link_to course.title, course %>
+              </div>
+              <div class="content">
+                <h4>Notes</h4>
+                <% notes_array = Note.where(:course_id => course.id).where(:user_id => @user.id) %> 
+                <% notes_array.each do |note| %>
+                  <%= render :partial => 'shared/yournote', :locals => { :note => note }  %>
+                <% end %>
+              </div>
+            </li> 
+          <% end %>
+        </ul>
+      <% else %>
+        <p><%= @user.full_name %> hasn't saved any courses yet!</p>
+      <% end %>
   </div>
 
 </div>

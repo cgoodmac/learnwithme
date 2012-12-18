@@ -26,13 +26,17 @@ class User < ActiveRecord::Base
   has_secure_password
   # validates :email, :password_digest, :presence => true
   # validates :email, :uniqueness => true
-
+  has_and_belongs_to_many :categories
   has_and_belongs_to_many :courses
   has_many :taught_courses, :class_name => 'Course', :foreign_key => 'teacher_id'
   has_many :notes, :through => :courses
   has_many :events
 
   mount_uploader :image, ImageUploader
+
+  def self.text_search(query)
+    self.where("full_name @@ :q", :q => query)
+  end
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)

@@ -22,6 +22,8 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :audios
   has_and_belongs_to_many :categories
   
+  has_many :events
+
   belongs_to :teacher, :class_name => 'User', :foreign_key => 'teacher_id'
 
   mount_uploader :image, ImageUploader

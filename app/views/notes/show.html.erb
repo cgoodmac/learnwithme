@@ -3,8 +3,8 @@
 </div>
 
 <div class="six columns end">
-  <div class="edit-back twelve columns">
-    <%= link_to 'Edit', edit_note_path(@note) %> | <%= link_to 'Back', dashboard_path %>
+  <div class="admin_links twelve columns">
+    <%= link_to 'Back', dashboard_path %> | <%= link_to 'Delete note', @note, method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 
   <div class="twelve columns">

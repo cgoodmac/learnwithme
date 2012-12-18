@@ -9,5 +9,8 @@
     <div class="twelve columns">
       <%= note.content %>
     </div>
+    <div class="admin_links twelve columns">
+      <%= link_to 'Edit note', edit_note_path(note) %> | <%= link_to 'Delete note', note, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
   </div>
 </div>

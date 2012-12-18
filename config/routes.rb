@@ -21,7 +21,9 @@ Lifehacks::Application.routes.draw do
   post '/follow' => 'users#follow'
   post '/unfollow' => 'users#unfollow'
   get '/popular' => 'courses#popular'
-
+  get '/usersearch' => 'users#search'
+  get '/userquery' => 'users#userquery'
+ 
   # Lets you see all the icons available to you
   mount Foundation::Icons::Rails::Engine => '/fi'
 

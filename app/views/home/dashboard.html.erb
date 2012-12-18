@@ -4,30 +4,11 @@
 <div class="twelve columns">
   <div class="avatar two columns th">
     <%= image_tag @auth.image.url %>
-    <% if @auth.all_following.any? %>
-      <div class="twelve columns" id="following-grid">
-        <h3>Following</h3>
-        <h4>
-          <% @auth.all_following.each do |follow| %>
-            <%= link_to follow.full_name, follow %>&nbsp;
-          <% end %>
-        </h4>
-      </div>
-    <% end %>
-    <% if @auth.followers.any? %>
-      <div class="twelve columns" id="follower-grid">
-        <h3>Followed By</h3>
-        <h4>
-          <% @auth.followers.each do |follow| %>
-            <%= link_to follow.full_name, follow %>&nbsp;
-          <% end %>
-        </h4>
-      </div>
-    <% end %>
+    <%= render :partial => 'shared/followbox', :locals => { :user => @auth }  %>
   </div>
   
   <% if @auth.courses.any? %>
-    <div id="user_courses" class="six columns end">
+    <div id="user_courses" class="five columns">
         <h3>Your Saved Courses</h3>
           <ul class="accordion">
           <% @auth.courses.each do |course| %>
@@ -37,35 +18,47 @@
                 </div>
                 <div class="content">
                   <h4>Notes</h4>
-                  <table class="twelve">
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Subject</th>
-                      </tr>
-                    </thead>
                   <% notes_array = Note.where(:course_id => course.id).where(:user_id => @auth.id) %> 
                   <% notes_array.each do |note| %>
-                    <tr>
-                      <td><%= note.created_at.to_s %></td>
-                      <td><%= link_to note.subject, note %></td>
-                    </tr>  
+                    <%= render :partial => 'shared/yournote', :locals => { :note => note }  %>
                   <% end %>
-                  </table>
                 </div>
               </li> 
           <% end %>
           </ul>
     </div>
   <% else %>
-    <div id="courses" class="nine columns end">
+    <div id="courses" class="five columns">
       <h3>You Haven't Saved Any Courses Yet! Try These:</h3>
       <% @sample.each do |course| %>
-        <%= render :partial => 'shared/coursediv', :locals => { :course => course }  %>
+        <%= render :partial => 'shared/bigcoursediv', :locals => { :course => course }  %>
       <% end %>
     </div>
   <% end %>
-
+  <div id="activity" class="five columns">
+    <div class="twelve columns">
+      <h3>Recent Activity</h3>
+    </div>
+    <div class="twelve columns">
+      <ul class="unstyled">
+        <% @events.each do |event| %>
+          <% user = User.find(event.user_id) %>
+          <% course = Course.find(event.course_id) %>
+          <li>
+            <div class="twelve columns panel">
+              <div class="eight columns">
+                <%= link_to user.full_name, user %> <%= event.event %><br>
+                <%= link_to course.title, course %>
+              </div>
+              <div class="four columns">
+                <%= event.created_at.strftime("%d %b %Y") %>
+              </div>  
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
   <div id="create">
   </div>
   <%# if @auth.is_admin == "on" %>

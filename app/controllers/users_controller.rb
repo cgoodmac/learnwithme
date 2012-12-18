@@ -52,4 +52,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @auth.stop_following(@user)
   end
+
+  def search
+
+  end
+
+  def userquery
+    query = params[:query]
+      if query.present?
+        @users = User.text_search(query).page(params[:page])
+      else
+        @users = User.page(params[:page])
+      end
+    end
 end

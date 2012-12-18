@@ -21,7 +21,26 @@ class HomeController < ApplicationController
 
   def dashboard
     notmine = Course.all - @auth.courses
-    @sample = notmine.sample(4)
+    @sample = notmine.sample(2)
+
+    following_id_array = []
+    @events = []
+
+    @auth.follows.each do |following|
+      following_id_array << following.followable_id
+    end
+
+    following_id_array.each do |following_id|
+      each_user_events = Event.where(:user_id => following_id).limit(3) #gets all the events for each user
+       
+      each_user_events.each do |event|  
+        @events << event
+      end
+
+    end 
+
+    @events = @events.sort_by {|event| event.created_at}
+
   end
 
 end

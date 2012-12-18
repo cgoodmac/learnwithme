@@ -1,0 +1,20 @@
+$('#search_results').empty();
+
+<% if @users.count > 0 %>
+  <% @users.each do |user| %>
+    var userdiv  = $('<div>');
+    var userpill = $('<div>');
+    userdiv.addClass('course_div three columns');
+    userpill.addClass('course_pill panel');
+    $(userpill).prepend('<span="followers">Followers <%= user.followers_count %></span>');
+    $(userpill).prepend('<h4><%= link_to user.full_name, user %></h4>');
+    $(userpill).prepend('<%= link_to image_tag(user.image.url), user %>');
+    $(userdiv).prepend(userpill);
+    $('#search_results').prepend(userdiv);
+  <% end %>
+    $('#search_results').append('<%=j paginate @users, :remote => true %>')
+<% else %>
+  $('#search_results').prepend('<h2>No Results Matched Your Query!</h2>');
+<% end %>
+
+$('#search_results').prepend('<h2>Search Results</h2>');
