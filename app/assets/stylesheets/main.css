@@ -1,6 +1,7 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 200; }
+  font-weight: 200; 
+  background: url('gray_jean.png') repeat;}
 
 h1, h2, h3, h4, p {
   font-weight: 200; }
@@ -23,12 +24,21 @@ h4 {
   -webkit-box-shadow: 0 0 30px 5px #999;
   height: 100%;
   overflow: hidden;
-  padding-bottom: 20px; }
+  padding-bottom: 20px;
+  background-color: #FBFBFB; }
 
 .course_div {
-  height: 280px;
+  height: 300px;
   margin-bottom: 10px;
   overflow: hidden; }
+
+.course_div .category {
+  margin-top: 5px;
+}
+
+#big_course_div {
+  height:auto;
+}
 
 #login_reg {
   margin-bottom: 30px; }
@@ -60,3 +70,6 @@ table thead tr th:first-child {
 
 #follow-button {
   margin-top: 10px; }
+
+.votes {
+  color: #505050; }

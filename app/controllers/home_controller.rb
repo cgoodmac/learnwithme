@@ -13,6 +13,10 @@ class HomeController < ApplicationController
 
     @user_count = User.count
 
+    @most_popular = Course.plusminus_tally.first
+
+    @next_most_popular = Course.plusminus_tally.limit(5) - Course.plusminus_tally.limit(1)
+
   end
 
   def dashboard
