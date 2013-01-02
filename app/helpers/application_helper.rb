@@ -14,4 +14,20 @@ module ApplicationHelper
     end
   end
 
+  def my_note_numbers
+    if @notes_array
+      @notes_array.count
+    else
+      0
+    end
+  end
+
+  def all_note_numbers
+    if @all_notes_array
+      @all_notes_array.count 
+    else
+      0
+    end
+  end
+
 end
