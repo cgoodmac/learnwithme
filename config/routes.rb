@@ -10,6 +10,7 @@ Lifehacks::Application.routes.draw do
 
   get '/logout' => 'sessions#destroy'
   post '/login' => 'sessions#create'
+  
   get 'dashboard' => 'home#dashboard'
 
   match '/auth/:provider/callback' => 'sessions#twittercreate'
